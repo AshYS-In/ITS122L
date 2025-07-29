@@ -1,0 +1,264 @@
+{% extends 'info_hub/base.html' %}
+
+{% block title %}Contact Us - Information Hub{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8 mx-auto">
+        <!-- Page Header -->
+        <div class="text-center mb-5">
+            <h1 class="display-4 fw-bold text-gradient mb-3">
+                <i class="fas fa-envelope me-3"></i>
+                Get in Touch
+            </h1>
+            <p class="lead text-muted">
+                Have questions, suggestions, or want to get involved? We'd love to hear from you!
+            </p>
+        </div>
+
+        <!-- Contact Information Cards -->
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="card text-center hover-lift h-100">
+                    <div class="card-body">
+                        <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Visit Us</h5>
+                        <p class="card-text text-muted">
+                            123 Community Street<br>
+                            City, State 12345
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center hover-lift h-100">
+                    <div class="card-body">
+                        <i class="fas fa-phone fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Call Us</h5>
+                        <p class="card-text text-muted">
+                            +1 (555) 123-4567<br>
+                            Mon-Fri 9AM-5PM
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card text-center hover-lift h-100">
+                    <div class="card-body">
+                        <i class="fas fa-envelope fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Email Us</h5>
+                        <p class="card-text text-muted">
+                            info@informationhub.com<br>
+                            support@informationhub.com
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">
+                    <i class="fas fa-paper-plane me-2"></i>
+                    Send us a Message
+                </h4>
+            </div>
+            <div class="card-body p-4">
+                <form id="contactForm" data-custom-tooltip="We'll get back to you within 24 hours">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName" class="form-label">
+                                <i class="fas fa-user me-1"></i>
+                                First Name *
+                            </label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName" class="form-label">
+                                <i class="fas fa-user me-1"></i>
+                                Last Name *
+                            </label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">
+                                <i class="fas fa-envelope me-1"></i>
+                                Email Address *
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="phone" class="form-label">
+                                <i class="fas fa-phone me-1"></i>
+                                Phone Number
+                            </label>
+                            <input type="tel" class="form-control" id="phone" name="phone">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="subject" class="form-label">
+                            <i class="fas fa-tag me-1"></i>
+                            Subject *
+                        </label>
+                        <select class="form-select" id="subject" name="subject" required>
+                            <option value="">Choose a subject...</option>
+                            <option value="general">General Inquiry</option>
+                            <option value="support">Technical Support</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="volunteer">Volunteer Opportunity</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="message" class="form-label">
+                            <i class="fas fa-comment me-1"></i>
+                            Message *
+                        </label>
+                        <textarea class="form-control" id="message" name="message" rows="5" 
+                                  placeholder="Tell us how we can help you..." required></textarea>
+                        <div class="form-text">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Please provide as much detail as possible to help us assist you better.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                            <label class="form-check-label" for="newsletter">
+                                Subscribe to our newsletter for updates and announcements
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="reset" class="btn btn-outline-secondary me-md-2">
+                            <i class="fas fa-undo me-1"></i>
+                            Reset Form
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane me-1"></i>
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="mt-5">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-question-circle me-2 text-primary"></i>
+                Frequently Asked Questions
+            </h3>
+            
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq1">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                            <i class="fas fa-calendar me-2 text-primary"></i>
+                            How do I register for an event?
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Browse our events page and click on any event that interests you. You'll find registration details and contact information for each event.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq2">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                            <i class="fas fa-bullhorn me-2 text-info"></i>
+                            How can I submit an announcement?
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Contact us through this form or email us directly. We'll review your announcement and post it if it meets our community guidelines.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="faq3">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">
+                            <i class="fas fa-hands-helping me-2 text-success"></i>
+                            How can I volunteer?
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            We're always looking for volunteers! Contact us through this form or visit our volunteer page to learn about current opportunities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="text-center mt-5">
+            <h4 class="mb-3">
+                <i class="fas fa-share-alt me-2 text-primary"></i>
+                Follow Us on Social Media
+            </h4>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#" class="btn btn-outline-primary btn-lg" data-custom-tooltip="Follow us on Facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <a href="#" class="btn btn-outline-info btn-lg" data-custom-tooltip="Follow us on Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="btn btn-outline-danger btn-lg" data-custom-tooltip="Follow us on Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="btn btn-outline-primary btn-lg" data-custom-tooltip="Connect on LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Contact form submission handling
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Show success notification
+    showNotification('Thank you for your message! We\'ll get back to you soon.', 'success');
+    
+    // Reset form
+    this.reset();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Form validation enhancement
+document.querySelectorAll('#contactForm input, #contactForm textarea, #contactForm select').forEach(field => {
+    field.addEventListener('blur', function() {
+        if (this.hasAttribute('required') && !this.value.trim()) {
+            this.classList.add('is-invalid');
+        } else {
+            this.classList.remove('is-invalid');
+            this.classList.add('is-valid');
+        }
+    });
+    
+    field.addEventListener('input', function() {
+        if (this.classList.contains('is-invalid')) {
+            this.classList.remove('is-invalid');
+        }
+    });
+});
+</script>
+{% endblock %}

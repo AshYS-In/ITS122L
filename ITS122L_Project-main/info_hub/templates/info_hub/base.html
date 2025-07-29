@@ -3,79 +3,259 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Information Hub - Stay updated with the latest announcements and join exciting events in our community">
+    <meta name="keywords" content="information hub, announcements, events, community">
+    <meta name="author" content="Information Hub Team">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    
     <title>{% block title %}Information Hub{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <!-- Additional Meta Tags -->
+    <meta property="og:title" content="{% block og_title %}Information Hub{% endblock %}">
+    <meta property="og:description" content="Stay updated with the latest announcements and join exciting events in our community">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}Information Hub{% endblock %}">
+    <meta name="twitter:description" content="Stay updated with the latest announcements and join exciting events in our community">
 </head>
 <body>
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-primary">
-    <div class="container-fluid">
-        <a class="navbar-brand text-white" href="/">Information Hub</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Event List Link -->
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'event_list' %}">Event List</a>
-                </li>
-
-                <!-- Announcement List Link -->
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'announcement_list' %}">Announcement List</a>
-                </li>
-
-                <!-- Profile Link (Only if logged in) -->
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'profile' %}">Profile</a>
-                </li>
-
-                <!-- Admin Link (Only if user is an admin) -->
-                {% if user.is_staff %}
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="{% url 'admin:index' %}">Admin</a>
-                </li>
-                {% endif %}
-                {% endif %}
-            </ul>
-
-            <!-- Login/Logout Button on the right -->
-            <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                <!-- Logout Button -->
-                <li class="nav-item">
-                    <form method="POST" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-danger">Logout</button>
-                    </form>
-                </li>
-                {% else %}
-                <!-- Login Button -->
-                <li class="nav-item">
-                    <a class="btn btn-primary me-2" href="{% url 'login' %}">Log in</a>
-                </li>
-
-                <!-- Sign Up Button (Only if user is not logged in) -->
-                <li class="nav-item">
-                    <a class="btn btn-success" href="{% url 'signup' %}">Sign Up</a>
-                </li>
-                {% endif %}
-            </ul>
-        </div>
+    <!-- Loading Spinner (hidden by default) -->
+    <div id="loading-spinner" class="position-fixed top-0 start-0 w-100 h-100 d-none justify-content-center align-items-center" style="background: rgba(255,255,255,0.9); z-index: 9999;">
+        <div class="spinner"></div>
     </div>
-</nav>
 
-<!-- Page Content -->
-<div class="container mt-4">
-    {% block content %}
-    {% endblock %}
-</div>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-primary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white d-flex align-items-center" href="/">
+                <i class="fas fa-home me-2"></i>
+                Information Hub
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Event List Link -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="{% url 'event_list' %}">
+                            <i class="fas fa-calendar-alt me-1"></i>
+                            Events
+                        </a>
+                    </li>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+                    <!-- Announcement List Link -->
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="{% url 'announcement_list' %}">
+                            <i class="fas fa-bullhorn me-1"></i>
+                            Announcements
+                        </a>
+                    </li>
 
+                    <!-- Profile Link (Only if logged in) -->
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="{% url 'profile' %}">
+                            <i class="fas fa-user me-1"></i>
+                            Profile
+                        </a>
+                    </li>
+
+                    <!-- Admin Link (Only if user is an admin) -->
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white d-flex align-items-center" href="{% url 'admin:index' %}">
+                            <i class="fas fa-cog me-1"></i>
+                            Admin
+                        </a>
+                    </li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+
+                <!-- Login/Logout Button on the right -->
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                    <!-- User Welcome Message -->
+                    <li class="nav-item d-none d-lg-block">
+                        <span class="nav-link text-white-50">
+                            <i class="fas fa-user-circle me-1"></i>
+                            Welcome, {{ user.username }}
+                        </span>
+                    </li>
+                    
+                    <!-- Logout Button -->
+                    <li class="nav-item">
+                        <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-sign-out-alt me-1"></i>
+                                Logout
+                            </button>
+                        </form>
+                    </li>
+                    {% else %}
+                    <!-- Login Button -->
+                    <li class="nav-item">
+                        <a class="btn btn-primary me-2" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt me-1"></i>
+                            Log in
+                        </a>
+                    </li>
+
+                    <!-- Sign Up Button (Only if user is not logged in) -->
+                    <li class="nav-item">
+                        <a class="btn btn-success" href="{% url 'signup' %}">
+                            <i class="fas fa-user-plus me-1"></i>
+                            Sign Up
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <main class="container mt-4 fade-in">
+        {% if messages %}
+        <div class="messages mb-4">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                <i class="fas fa-info-circle me-2"></i>
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-home me-2"></i>Information Hub</h5>
+                    <p class="text-muted">Stay connected with your community through announcements and events.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                    <p class="text-muted mt-2">&copy; 2024 Information Hub. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="btn btn-primary position-fixed bottom-0 end-0 m-3 d-none" style="z-index: 1000;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        // Back to top functionality
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('d-none');
+            } else {
+                backToTopButton.classList.add('d-none');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Loading spinner for form submissions
+        document.addEventListener('DOMContentLoaded', function() {
+            const forms = document.querySelectorAll('form');
+            const loadingSpinner = document.getElementById('loading-spinner');
+            
+            forms.forEach(form => {
+                form.addEventListener('submit', function() {
+                    loadingSpinner.classList.remove('d-none');
+                });
+            });
+            
+            // Hide spinner after page load
+            window.addEventListener('load', function() {
+                loadingSpinner.classList.add('d-none');
+            });
+        });
+        
+        // Add animation classes to elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('slide-up');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe cards and other elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => observer.observe(card));
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
