@@ -1,0 +1,22 @@
+{% extends 'info_hub/base.html' %}
+
+{% block title %}Announcements{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Announcements</h1>
+    {% if announcements %}
+        <div class="list-group">
+            {% for announcement in announcements %}
+                <a href="{% url 'announcement_detail' announcement.id %}" class="list-group-item list-group-item-action mb-3">
+                    <h5 class="mb-1">{{ announcement.headline }}</h5>
+                    <p class="mb-1">{{ announcement.pub_date|date:"F j, Y, g:i a" }}</p>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No announcements available.</p>
+    {% endif %}
+    <a href="{% url 'index' %}" class="btn btn-primary">Home</a>
+</div>
+{% endblock %}

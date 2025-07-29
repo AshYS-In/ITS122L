@@ -1,0 +1,22 @@
+{% extends 'info_hub/base.html' %}
+
+{% block title %}{{ profile.first_name }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">{{ profile.first_name }} {{ profile.last_name }}'s Profile</h1>
+    <div class="card" style="max-width: 18rem;">
+        <img src="{{ profile.avatar_url }}" class="card-img-top" alt="{{ profile.first_name }}'s Avatar">
+        <div class="card-body">
+            <h5 class="card-title">{{ profile.first_name }} {{ profile.last_name }}</h5>
+            <p class="card-text">Username: {{ profile.user.username }}</p>
+            <p class="card-text">Email: {{ profile.user.email }}</p>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+        </div>
+    </div>
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-4">Back to Home</a>
+</div>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'info_hub/base.html' %}
+
+{% block title %}{{ announcement.headline }} - Announcement{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ announcement.headline }}</h1>
+    <p><span class="fw-bold">Date Published:</span> {{ announcement.pub_date|date:"F j, Y, g:i a" }}</p>
+    <p>{{ announcement.content }}</p>
+    <a href="{% url 'announcement_list' %}" class="btn btn-secondary">Back to Announcements</a>
+</div>
+{% endblock %}
